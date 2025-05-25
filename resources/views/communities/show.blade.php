@@ -82,26 +82,26 @@
         
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header">
-                    <h4>Community Members</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group">
-                        @foreach($community->members()->limit(5)->get() as $member)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ $member->name }}
-                                <span class="badge bg-primary rounded-pill">
-                                    {{ $member->pivot->role }}
-                                </span>
-                            </li>
-                        @endforeach
-                    </ul>
-                    @if($community->members()->count() > 5)
-                        <a href="{{ route('communities.members', $community) }}" class="btn btn-link mt-2">
-                            View all members
-                        </a>
-                    @endif
-                </div>
+            <div class="card-header">
+                <h4>Community Members</h4>
+            </div>
+            <div class="card-body">
+                <h4 class="mt-4">Community Members</h4>
+                <ul class="list-group">
+                @foreach($members as $member)
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ $member->name }}
+                    <span class="badge bg-secondary">{{ $member->pivot->role }}</span>
+                    </li>
+                @endforeach
+                </ul>
+
+                @if($community->members()->count() > 5)
+                <a href="{{ route('communities.members', $community) }}" class="btn btn-link mt-2">
+                    View all members
+                </a>
+                @endif
+            </div>
             </div>
         </div>
     </div>

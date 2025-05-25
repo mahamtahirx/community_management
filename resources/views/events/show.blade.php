@@ -52,19 +52,21 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('events.rsvp', $event) }}" method="POST">
-                        @csrf
-                        <div class="btn-group" role="group">
-                            <button type="submit" name="status" value="attending" 
-                                class="btn btn-success @if($userRsvp && $userRsvp->status === 'attending') active @endif">
-                                Attending
-                            </button>
-                            <button type="submit" name="status" value="not_attending" 
-                                class="btn btn-danger @if($userRsvp && $userRsvp->status === 'not_attending') active @endif">
-                                Not Attending
-                            </button>
-                        </div>
-                    </form>
+                    @unless(Auth::id() === $event->created_by)
+                        <form action="{{ route('events.rsvp', $event) }}" method="POST">
+                            @csrf
+                            <div class="btn-group" role="group">
+                                <button type="submit" name="status" value="attending" 
+                                    class="btn btn-success @if($userRsvp && $userRsvp->status === 'attending') active @endif">
+                                    Attending
+                                </button>
+                                <button type="submit" name="status" value="not_attending" 
+                                    class="btn btn-danger @if($userRsvp && $userRsvp->status === 'not_attending') active @endif">
+                                    Not Attending
+                                </button>
+                            </div>
+                        </form>
+                    @endunless
                 </div>
             </div>
         </div>

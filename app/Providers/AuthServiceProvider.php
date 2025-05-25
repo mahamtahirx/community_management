@@ -6,6 +6,8 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use App\Models\Community;
 use App\Policies\CommunityPolicy;
+use App\Models\Event;
+use App\Policies\EventPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -16,8 +18,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Community::class => CommunityPolicy::class,
+        Event::class => EventPolicy::class,
         // Add other model-policy mappings here as needed
     ];
+
 
     /**
      * Register any authentication / authorization services.
@@ -41,4 +45,5 @@ class AuthServiceProvider extends ServiceProvider
                 ->exists();
         });
     }
+    
 }

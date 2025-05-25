@@ -1,6 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
 
+use App\Mail\EventCreatedNotification;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use App\Models\Community;
 use App\Models\Event;
 use App\Models\Rsvp;
@@ -17,7 +21,7 @@ class EventController extends Controller
             }])
             ->orderBy('start_time')
             ->get();
-            
+
         $userRole = Auth::user()->communities()
             ->where('community_id', $community->id)
             ->first()->pivot->role ?? null;
@@ -52,7 +56,25 @@ class EventController extends Controller
             'created_by' => Auth::id(),
         ]);
 
-        return redirect()->route('events.index', $community)->with('success', 'Event created successfully!');
+        try {
+            // Make sure members are retrieved
+            $members = $community->members()->get();
+
+            foreach ($members as $member) {
+                Mail::to($member->email)
+                    ->send(new EventCreatedNotification($event));
+            }
+
+            return redirect()
+                ->route('events.index', $community)
+                ->with('success', 'Event created and email notifications sent successfully!');
+        } catch (\Exception $e) {
+            Log::error('Email sending failed: ' . $e->getMessage());
+
+            return redirect()
+                ->route('events.index', $community)
+                ->with('error', 'Event created but email notifications failed.');
+        }
     }
 
     public function show(Community $community, Event $event)
@@ -61,7 +83,7 @@ class EventController extends Controller
             ->with('user')
             ->get()
             ->groupBy('status');
-            
+
         $userRsvp = $event->rsvps()
             ->where('user_id', Auth::id())
             ->first();
