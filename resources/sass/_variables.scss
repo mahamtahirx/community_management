@@ -1,0 +1,24 @@
+// Body
+$body-bg: #F5E8C7;
+
+// Typography
+$font-family-sans-serif: 'Nunito', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// Colors
+$primary: #6B705C;
+$white: #FFFFFF;
+$text-dark: #333333;
+$text-light: #666666;
+
+// Bootstrap overrides
+$navbar-bg: $primary;
+$navbar-color: $white;
+$navbar-hover-color: lighten($primary, 10%);
+$card-border-color: $primary;
+$card-bg: lighten($body-bg, 5%);
+$btn-primary-bg: $primary;
+$btn-primary-border: $primary;
+$btn-primary-hover-bg: darken($primary, 10%);
+$btn-primary-hover-border: darken($primary, 10%);

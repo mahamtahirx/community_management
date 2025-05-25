@@ -1,0 +1,66 @@
+@import 'node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+
+body {
+    background-color: #F5E8C7;
+    color: #333333;
+    font-family: 'Lora', serif;
+}
+
+.navbar {
+    background-color: #6B705C;
+    padding: 1rem 2rem;
+}
+
+.navbar .navbar-brand, .navbar .nav-link {
+    color: #FFFFFF !important;
+}
+
+.navbar .nav-link:hover {
+    color: #F5E8C7 !important;
+}
+
+.container {
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+h1, h2, h3 {
+    color: #6B705C;
+}
+
+.btn-primary {
+    background-color: #6B705C;
+    border-color: #6B705C;
+}
+
+.btn-primary:hover {
+    background-color: #4F5446;
+    border-color: #4F5446;
+}
+
+.card {
+    border: 1px solid #6B705C;
+    border-radius: 8px;
+}
+
+.card-title a {
+    color: #6B705C;
+    text-decoration: none;
+}
+
+.card-title a:hover {
+    color: #4F5446;
+}
+
+.alert {
+    border-radius: 5px;
+}
+
+.list-group-item {
+    background-color: #F5E8C7;
+    border: 1px solid #6B705C;
+}
