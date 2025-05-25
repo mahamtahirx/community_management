@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
@@ -29,6 +30,17 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
+
+        try {
+            Http::post('http://localhost:3001/send-email', [
+                'to' => $user->email,
+                'subject' => 'Welcome to Community Management!',
+                'html' => "<h1>Welcome, {$user->name}!</h1><p>Thanks for signing up. Start joining communities now!</p>",
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Registration email failed: ' . $e->getMessage());
+        }
+
         return redirect()->route('dashboard');
     }
 
@@ -46,6 +58,17 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
+            try {
+                Http::post('http://localhost:3001/send-email', [
+                    'to' => Auth::user()->email,
+                    'subject' => 'Login Notification',
+                    'html' => "<p>Hello {$request->user()->name}, you just logged into your account at " . now()->toDayDateTimeString() . ".</p>",
+                ]);
+            } catch (\Exception $e) {
+                \Log::error('Login email failed: ' . $e->getMessage());
+            }
+
             return redirect()->intended('dashboard');
         }
 

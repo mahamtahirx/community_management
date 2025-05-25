@@ -40,4 +40,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/communities/{community}/events', [EventController::class, 'create'])->name('events.create');
     Route::get('/communities/{community}/events/{event}', [EventController::class, 'show'])->name('events.show');
     Route::post('/events/{event}/rsvp', [EventController::class, 'rsvp'])->name('events.rsvp');
+    Route::delete('/communities/{community}/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
+
+    // ✅ Newly added for editing and updating events
+    Route::get('/communities/{community}/events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
+    Route::put('/communities/{community}/events/{event}', [EventController::class, 'update'])->name('events.update');
+    Route::post('/communities/{community}/events/{event}/remind', [EventController::class, 'sendReminder'])
+    ->name('events.remind');
+
 });
