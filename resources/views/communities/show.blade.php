@@ -66,12 +66,13 @@
                 <div class="list-group">
                     @foreach($pastEvents as $event)
                         <a href="{{ route('events.show', ['community' => $community, 'event' => $event]) }}" 
-                           class="list-group-item list-group-item-action">
+                           class="list-group-item list-group-item-action disabled" style="pointer-events: none;">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{ $event->title }}</h5>
                                 <small>{{ $event->start_time->format('M d, Y') }}</small>
                             </div>
                             <p class="mb-1">{{ Str::limit($event->description, 100) }}</p>
+                            <small class="text-muted">This event has already occurred</small>
                         </a>
                     @endforeach
                 </div>
@@ -87,15 +88,14 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
-                        @foreach($community->members()->limit(5)->get() as $member)
+                        @foreach($members as $member)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 {{ $member->name }}
-                                <span class="badge bg-primary rounded-pill">
-                                    {{ $member->pivot->role }}
-                                </span>
+                                <span class="badge bg-secondary">{{ $member->pivot->role }}</span>
                             </li>
                         @endforeach
                     </ul>
+
                     @if($community->members()->count() > 5)
                         <a href="{{ route('communities.members', $community) }}" class="btn btn-link mt-2">
                             View all members

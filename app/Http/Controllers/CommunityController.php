@@ -7,6 +7,8 @@ use App\Models\Event;
 use App\Models\Rsvp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 class CommunityController extends Controller
 {

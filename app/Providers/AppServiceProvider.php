@@ -14,6 +14,12 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
+
+protected $policies = [
+    Event::class => EventPolicy::class,
+];
+
+
     /**
      * Bootstrap any application services.
      */
