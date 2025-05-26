@@ -27,6 +27,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # --- Node.js and frontend steps (add these) ---
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install frontend dependencies
+        run: npm install
+
+      - name: Build assets
+        run: npm run build
+      # --- End Node.js and frontend steps ---
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
